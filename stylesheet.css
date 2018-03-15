@@ -1,0 +1,29 @@
+*{
+  font-family: Tahoma;
+}
+
+body{
+  margin: 5em 20em 5em 20em;
+}
+
+.todaysWeather{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  width: 40em;
+  padding: 5em;
+}
+.todaysWeather img{
+  width: 10em;
+  padding-right: 2em;
+}
+
+.detailView{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.detailView img{
+  width: 5em;
+}
