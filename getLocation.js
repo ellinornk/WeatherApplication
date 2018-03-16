@@ -46,30 +46,68 @@
           let todaysTemp = todaysWeatherResponse.main.temp;
           todaysTemperature.innerHTML = todaysTemp.toFixed(0) + " °C";
         }
+        //To get current time and date
+        getDateAndTime();
+        async function getDateAndTime(){
+            function addZero(i) { //To get a zero when the min or hour starts with 0
+                if (i < 10) {
+                  i = "0" + i;
+                }
+                return i;
+            }
+
+            let today = new Date();
+            let day = today.getDay();
+            let date = today.getDate();
+            let month = today.getMonth() + 1;
+            let year = today.getFullYear();
+            let hours = addZero(today.getHours());
+            let minutes = addZero(today.getMinutes());
+
+            //Time
+            currentTimeAndDate.innerHTML = 'Time:' + hours + ':' + minutes + '  Date:' + date + '/' + month + '/' + year;
+      }
+
 
         //Weather for the dayily view
         getDailyView();
         async function getDailyView(){
           let dailyViewsResponse = await fetchData('http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=4193f83670e8762d9b30d187da002bb6&units=metric');
-          /*  for(var i=0; i<dailyViewsResponse.length; i++){
-              let theArrayForThis = dailyViewsResponse.list[i].dt_txt;
-              console.log(theArrayForThis);
-            } */
-            for (var i = 0; i < 8; i++) {
-              let thisThing = dailyViewsResponse.list[i].dt_txt;
-              let newThing = thisThing.includes(12);
 
+          var x = 1;
+          for (var i = 0; i < 40; i++) {
+              let dateList = dailyViewsResponse.list[i].dt_txt;
+              let time = dateList.includes('12:00'); //gets the noon weather measure
+              if(time==true){
+                //Sets icon
+                let iconInput = dailyViewsResponse.list[i].weather[0].icon;
+                document.getElementById("image"+(x)).src = getIcon(iconInput);
+                //Sets Date
+                document.getElementById("date"+(x)).innerHTML = dateList.slice(0,10);
+                x++;
+              }
             }
 
-            for (var i = 0; i < 40; i++) {
 
-                if((dailyViewsResponse.list[i].dt_txt).includes("12") == true){
+/*
 
-                  let iconInput = dailyViewsResponse.list[i].weather[0].icon;
-                  console.log(iconInput);
-                  document.getElementById("image"+(x)).src = getIcon(iconInput);
-                  x++;
-                }
+            var myData = [['2013-01-22', 0], ['2013-01-29', 1], ['2013-02-05', 21]];
+
+            var myTotal = 0;  // Variable to hold your total
+
+            for(var i = 0, len = myData.length; i < len; i++) {
+                myTotal += myData[i][1];  // Iterate over your first array and then grab the second element add the values up
+            }
+
+            document.write(myTotal); // 22 in this instance
+
+
+            var sum = myData.reduce(
+            function(sum, current){
+             return sum + current[1];
+            }, 0
+          );
+
 
 
                 //Minimum temperature
@@ -83,11 +121,12 @@
                 let tempMaxDay = dailyViewsResponse.list[i].main.temp_max;
                 console.log(tempMaxDay);
                 //document.getElementById(max).innerHTML = "Max: " + tempMaxDay.toFixed(1) + " °C";
-            }
+*/
         }
 
 
         //Get weather icon
+
         function getIcon(data){
             if((data == "01d") || (data == "01n")){ //clear skies
               return "images/weatherIcons/sunny.svg";
@@ -117,27 +156,4 @@
               return "images/weatherIcons/mist.svg";
             }
         }
-
-        //To get time and date
-        let today = new Date();
-        let day = today.getDay();
-        let date = today.getDate();
-        let month = today.getMonth() + 1;
-        let year = today.getFullYear();
-        let hours = today.getHours();
-        let minutes = today.getMinutes();
-
-        //Time
-        currentTimeAndDate.innerHTML = 'Time:' + hours + ':' + minutes + '  Date:' + date + '/' + month + '/' + year;
-
-        //Daily View day and date
-        for (var i = 0; i < 5; i++) {
-          let thisday = day + i;
-          let innerText = "day" + (1 + i);
-          let dateToday = "date" + (1 + i);
-          let newDate = date + i;
-          //document.getElementById(innerText).innerHTML = daysArray[thisday];
-          document.getElementById(dateToday).innerHTML = newDate + '/' + month + '/' + year;
-        }
-
-  }
+}
