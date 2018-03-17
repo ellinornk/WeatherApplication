@@ -1,5 +1,5 @@
 
-//Tar ut latitude och longitude från position
+//Gets longitude and latitude via gelocation
 
   window.onload = function getLocation() {
       if (navigator.geolocation) {
@@ -25,7 +25,6 @@
         getCity();
         async function getCity(){
           let googleResponse = await fetchData('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyAnTTqeN7ukZ1LxavCUaQxSceJdcdCQTAU');
-          console.log(googleResponse);
           let text = googleResponse.results[6].formatted_address;
           let posCurrPos = document.getElementById("posCurrPos");
           posCurrPos.innerHTML = text;
@@ -73,55 +72,27 @@
         getDailyView();
         async function getDailyView(){
           let dailyViewsResponse = await fetchData('http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=4193f83670e8762d9b30d187da002bb6&units=metric');
-
+          var y = 1;
           var x = 1;
           for (var i = 0; i < 40; i++) {
               let dateList = dailyViewsResponse.list[i].dt_txt;
               let time = dateList.includes('12:00'); //gets the noon weather measure
+              let timeNight = dateList.includes('03:00'); //gets the noon weather measure
               if(time==true){
                 //Sets icon
                 let iconInput = dailyViewsResponse.list[i].weather[0].icon;
                 document.getElementById("image"+(x)).src = getIcon(iconInput);
                 //Sets Date
                 document.getElementById("date"+(x)).innerHTML = dateList.slice(0,10);
+                document.getElementById("max"+(x)).innerHTML = dailyViewsResponse.list[i].main.temp_max;
                 x++;
               }
-            }
-
-
-/*
-
-            var myData = [['2013-01-22', 0], ['2013-01-29', 1], ['2013-02-05', 21]];
-
-            var myTotal = 0;  // Variable to hold your total
-
-            for(var i = 0, len = myData.length; i < len; i++) {
-                myTotal += myData[i][1];  // Iterate over your first array and then grab the second element add the values up
-            }
-
-            document.write(myTotal); // 22 in this instance
-
-
-            var sum = myData.reduce(
-            function(sum, current){
-             return sum + current[1];
-            }, 0
-          );
-
-
-
-                //Minimum temperature
-                let min = "min" + (i+1);
-                let tempMinDay = dailyViewsResponse.list[i].main.temp_min;
-                console.log(tempMinDay);
-                //document.getElementById(min).innerHTML= "Min: " + tempDay.toFixed(1) + " °C";
-
-                //Maximum temperature
-                let max = "max" + (i+1);
-                let tempMaxDay = dailyViewsResponse.list[i].main.temp_max;
-                console.log(tempMaxDay);
-                //document.getElementById(max).innerHTML = "Max: " + tempMaxDay.toFixed(1) + " °C";
-*/
+              if(timeNight==true){
+                document.getElementById("min"+(y)).innerHTML = dailyViewsResponse.list[i].main.temp_min;
+                console.log(dailyViewsResponse);
+                y++;
+              }
+           }
         }
 
 
