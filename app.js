@@ -43,7 +43,7 @@
 
           //Todays temperature
           let todaysTemp = todaysWeatherResponse.main.temp;
-          todaysTemperature.innerHTML = todaysTemp.toFixed(0) + " °C";
+          todaysTemperature.innerHTML = todaysTemp.toFixed(0) + " °c";
         }
         //To get current time and date
         getDateAndTime();
@@ -85,12 +85,12 @@
                 //Sets Date
                 document.getElementById("date"+(x)).innerHTML = dateList.slice(0,10);
                 //Sets (probably) the highest temperature
-                document.getElementById("max"+(x)).innerHTML =  "Max: " + dailyViewsResponse.list[i].main.temp_max;
+                document.getElementById("max"+(x)).innerHTML =  "Max: " + dailyViewsResponse.list[i].main.temp_max + " °c";
                 x++;
               }
               if(timeNight==true){
                 //Sets (probably) the lowest temperature
-                document.getElementById("min"+(y)).innerHTML = "Min: " + dailyViewsResponse.list[i].main.temp_min;
+                document.getElementById("min"+(y)).innerHTML = "Min: " + dailyViewsResponse.list[i].main.temp_min + " °c";
                 y++;
               }
            }

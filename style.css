@@ -1,0 +1,63 @@
+* {
+  font-family: Tahoma;
+  text-align: center;
+}
+body{
+  margin: 0;
+}
+
+.container {
+    margin: 0 20% 0 20%
+}
+
+.todaysWeather {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 25em;
+  margin: 5em;
+}
+  .todaysWeather div {
+    padding: 2em;
+  }
+  .todaysWeather img {
+    width: 15em;
+  }
+
+
+.detailView {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  margin-bottom: 5em;
+}
+  .detailView div {
+    width: 20em;
+    padding: 2em;
+  }
+    .detailView div img {
+      width: auto;
+  }
+
+
+footer{
+  height: auto;
+  width: 100%;
+  background-color: gray;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
