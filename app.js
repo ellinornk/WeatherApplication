@@ -40,7 +40,6 @@
           //Weather icon
           let icon = todaysWeatherResponse.weather[0].icon;
           document.getElementById("todaysWeatherIcon").src = getIcon(icon);
-
           //Todays temperature
           let todaysTemp = todaysWeatherResponse.main.temp;
           todaysTemperature.innerHTML = todaysTemp.toFixed(0) + " °c";
@@ -63,7 +62,7 @@
             let hours = addZero(today.getHours());
             let minutes = addZero(today.getMinutes());
 
-            //Time
+            //Writes out time and date
             currentTimeAndDate.innerHTML = 'Time:' + hours + ':' + minutes + '  Date:' + date + '/' + month + '/' + year;
       }
 
