@@ -77,19 +77,20 @@
           for (var i = 0; i < 40; i++) {
               let dateList = dailyViewsResponse.list[i].dt_txt;
               let time = dateList.includes('12:00'); //gets the noon weather measure
-              let timeNight = dateList.includes('03:00'); //gets the noon weather measure
+              let timeNight = dateList.includes('03:00'); //gets the night weather measure
               if(time==true){
                 //Sets icon
                 let iconInput = dailyViewsResponse.list[i].weather[0].icon;
                 document.getElementById("image"+(x)).src = getIcon(iconInput);
                 //Sets Date
                 document.getElementById("date"+(x)).innerHTML = dateList.slice(0,10);
-                document.getElementById("max"+(x)).innerHTML = dailyViewsResponse.list[i].main.temp_max;
+                //Sets (probably) the highest temperature
+                document.getElementById("max"+(x)).innerHTML =  "Max: " + dailyViewsResponse.list[i].main.temp_max;
                 x++;
               }
               if(timeNight==true){
-                document.getElementById("min"+(y)).innerHTML = dailyViewsResponse.list[i].main.temp_min;
-                console.log(dailyViewsResponse);
+                //Sets (probably) the lowest temperature
+                document.getElementById("min"+(y)).innerHTML = "Min: " + dailyViewsResponse.list[i].main.temp_min;
                 y++;
               }
            }
